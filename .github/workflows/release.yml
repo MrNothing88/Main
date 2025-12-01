@@ -1,0 +1,49 @@
+name: Build and Release Signed APK
+
+on:
+  push:
+    tags:
+      - 'v*'        # trigger on tags like v1.0.0
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Restore keystore from secret
+        run: |
+          echo "$KEYSTORE_B64" | base64 -d > release.keystore
+        env:
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
+
+      - name: Grant gradlew execute
+        run: chmod +x ./gradlew
+
+      - name: Build Release APK
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Sign/align release (if not signed by gradle)
+        run: |
+          ls -la app/build/outputs/apk/release
+          # if your Gradle already signs, skip this. Keeping for inspection.
+
+      - name: Upload release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: webview-release-apk
+          path: app/build/outputs/apk/release/*.apk
+
+      - name: Create GitHub Release (attach APK)
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
