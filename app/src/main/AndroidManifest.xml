@@ -2,19 +2,16 @@
     package="com.example.webapp">
 
     <application
-        android:name=".App"
-        android:label="WebViewApp"
-        android:theme="@style/Theme.App">
-
-        <activity
-            android:name=".MainActivity"
+        android:label="WebApp"
+        android:allowBackup="true"
+        android:supportsRtl="true">
+        <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

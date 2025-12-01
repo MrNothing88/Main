@@ -1,20 +1,27 @@
-plugins { id 'com.android.application' }
-
-android {
-  namespace 'com.example.webapp'
-  compileSdk 34
-
-  defaultConfig {
-    applicationId "com.example.webapp"
-    minSdk 24
-    targetSdk 34
-    versionCode 1
-    versionName "1.0"
-  }
-
-  buildTypes {
-    release { minifyEnabled false }
-  }
+plugins {
+    id 'com.android.application'
 }
 
-dependencies { }
+android {
+    namespace 'com.example.webapp'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.webapp"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.webkit:webkit:1.6.0'
+}

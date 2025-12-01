@@ -8,10 +8,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        WebView web = findViewById(R.id.webview);
+        WebView web = new WebView(this);
         web.getSettings().setJavaScriptEnabled(true);
-        web.loadUrl("https://example.com");
+        web.loadUrl("https://google.com");
+        setContentView(web);
     }
 }
